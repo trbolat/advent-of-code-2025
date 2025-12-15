@@ -22,16 +22,20 @@ func main() {
 		if line == "" {
 			continue
 		}
-		if isIncrease(line) {
-			index += getTurnBy(line)
-		} else {
-			index -= getTurnBy(line)
+		turnBy := getTurnBy(line)
+		for i := 0; i < turnBy; i++ {
+			if isIncrease(line) {
+				index++
+			} else {
+				index--
+			}
+			if index%100 == 0 {
+				cnt++
+			}
 		}
+
 		if index < minIndex || index > maxIndex {
 			index %= 100
-		}
-		if index == 0 {
-			cnt++
 		}
 	}
 	fmt.Println(cnt)
