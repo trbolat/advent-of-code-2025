@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"math"
 	"os"
 	"strconv"
 	"strings"
@@ -19,10 +18,14 @@ func main() {
 	for _, r := range ranges {
 		for id := r.from; id <= r.to; id++ {
 			idStr := strconv.Itoa(id)
-			half := idStr[0:int(math.Ceil(float64(len(idStr))/2))]
-
-			if idStr == half+half {
-				sum += id
+			for i := 1; i <= int(float64(len(idStr)/2)); i++ {
+				neededRepetitions := len(idStr) / i
+				sequence := idStr[0:i]
+				if idStr == strings.Repeat(sequence, neededRepetitions) {
+					fmt.Printf("%s | %s*%d matches\n", idStr, sequence, neededRepetitions)
+					sum += id
+					break
+				}
 			}
 		}
 	}
